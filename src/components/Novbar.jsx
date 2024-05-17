@@ -62,7 +62,7 @@ function Novbar() {
       <div className="navbar-end flex gap-5">
         <Link to="/cart" className="indicator btn text-lg mr-5">
           <span className="indicator-item badge badge-info">
-            {cartReporire.length}
+            {cartReporire && cartReporire.length}
           </span>
           <MdOutlineShoppingCart />
         </Link>
