@@ -28,11 +28,27 @@ export const cartSlice = createSlice({
       state.cartReporire = result;
       cartSlice.caseReducers.setLocal(state);
     },
+    plus: (state, { payload }) => {
+      let filterAmout = state.cartReporire.filter((product) => {
+        return product.id == payload;
+      });
+      filterAmout[0].amout++;
+    },
+    minus: (state, { payload }) => {
+      let filterAmout = state.cartReporire.filter((product) => {
+        return product.id == payload;
+      });
+      if (filterAmout[0].amout > 0) {
+        filterAmout[0].amout--;
+      } else {
+        filterAmout[0].amout = 0;
+      }
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
 
-export const { addCart, filterReporire } = cartSlice.actions;
+export const { addCart, filterReporire, minus, plus } = cartSlice.actions;
 
 export default cartSlice.reducer;
