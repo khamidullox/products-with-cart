@@ -14,7 +14,7 @@ function Home() {
   return (
     <div className="  w-full  flex flex-col items-center justify-between">
       <h1 className=" font-bold text-xl flex items-center justify-center m-3">
-        Products {data && data.length}
+        Products 
       </h1>
       <ProductsList />
     </div>
