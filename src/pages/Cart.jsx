@@ -1,51 +1,126 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { plus, minus } from "../Slice/cartSlice";
+import { GrFormTrash } from "react-icons/gr";
+import { chekAll, deleteCart, deleteAll } from "../Slice/cartSlice";
 function Cart() {
-  const { cart, cartReporire } = useSelector((state) => state.cart);
+  const { cart, chek } = useSelector((state) => state.cart);
   let dispetch = useDispatch();
-  console.log(cartReporire.amout);
-  return (
-    <ul className="flex m-2 flex-col  items-center justify-center gap-8 mt-10">
-      {cartReporire.map((cart, id) => {
-        return (
-          <li key={id} className="card card-side  bg-base-100 shadow-xl h-72">
-            <figure className=" size-72">
-              <img src={cart.images[0]} alt="Cart" />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title line-clamp-2">{cart.title}</h2>
-              <p className="lg:w-96 md:w-72 line-clamp-2 ">
-                {cart.description}
-              </p>
-              <div className="card-actions justify-between">
-                <p className=" font-bold text-xl">
-                  <button
-                    onClick={() => {
-                      dispetch(minus(cart.id));
-                    }}
-                    className="btn btn-outline py-0"
-                  >
-                    -
-                  </button>
-                  <span className="tex-xl p-5">{cart.amout}</span>
-                  <button
-                    onClick={() => {
-                      dispetch(plus(cart.id));
-                    }}
-                    className="btn btn-outline py-0"
-                  >
-                    +
-                  </button>
-                </p>
+  console.log(chek);
+  // let [chekAll, setChekAll] = useState(false);
 
-                <button className="btn btn-primary">Delte</button>
-              </div>
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+  return (
+    <div className="overflow-x-auto mx-20 my-10">
+      <table className="table">
+        {/* head */}
+        <thead>
+          <tr>
+            <th>
+              <label>
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  onChange={(e) => {
+                    dispetch(chekAll());
+                  }}
+                  checked={chek}
+                />
+              </label>
+            </th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Amout</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* row 1 */}
+          {cart &&
+            cart.map((item, id) => {
+              return (
+                <tr key={id}>
+                  <th>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        checked={chek ? true : undefined}
+                      />
+                    </label>
+                  </th>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={item.image}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">
+                          {item.title.substring(0, 30)}
+                        </div>
+                        <div className="text-sm opacity-50">
+                          {item.category}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className=" w-2/6">
+                    {item.description.substring(0, 100)}
+                    <br />
+                  </td>
+                  <td className="">
+                    <span className=" text-base font-bold">
+                      {" "}
+                      {item.price}$ x{item.amout}
+                    </span>
+                    <br />
+                    <span className="badge badge-ghost badge-sm  font-semibold">
+                      {item.price * item.amout}$
+                    </span>
+                  </td>
+                  <th>
+                    <button className="btn btn-ghost btn-xs"></button>
+                  </th>
+                  <th>
+                    <button
+                      onClick={() => {
+                        dispetch(deleteCart(item.id));
+                      }}
+                      className="btn btn-outline btn-xs"
+                    >
+                      <GrFormTrash className="size-6" />
+                    </button>
+                  </th>
+                </tr>
+              );
+            })}
+        </tbody>
+        {/* foot */}
+        <tfoot>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Amout</th>
+            <th>
+              <button
+                className="btn btn-outline btn-xs font-bold"
+                onClick={() => {
+                  dispetch(deleteAll());
+                }}
+              >
+                All Delete
+              </button>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   );
 }
 

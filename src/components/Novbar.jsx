@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useSelector } from "react-redux";
 function Novbar() {
-  const { cart, cartReporire } = useSelector((state) => state.cart);
+  const { cart, amout, chek } = useSelector((state) => state.cart);
 
   return (
     <div className="navbar bg-base-100">
@@ -61,9 +61,8 @@ function Novbar() {
       </div>
       <div className="navbar-end flex gap-5">
         <Link to="/cart" className="indicator btn text-lg mr-5">
-          <span className="indicator-item badge badge-info">
-            {cartReporire && cartReporire.length}
-          </span>
+          <span className="indicator-item badge badge-info">{amout}</span>
+
           <MdOutlineShoppingCart />
         </Link>
       </div>

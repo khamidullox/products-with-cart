@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import { Home, About, Cart, Contact, SingleProduct } from "./pages";
 import { loader as loaderHome } from "./pages/Home";
-// import { loader as loaderSingle } from "./pages/SingleProduct";
+import { loader as loaderSingle } from "./pages/SingleProduct";
 function App() {
   let router = createBrowserRouter([
     {
@@ -26,7 +26,7 @@ function App() {
         {
           path: "/singleProduct/:id",
           element: <SingleProduct />,
-          loader: loaderHome,
+          loader: loaderSingle,
         },
         {
           path: "/cart",

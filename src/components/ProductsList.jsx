@@ -9,13 +9,13 @@ function ProductsList() {
         data.map((product) => {
           return (
             <li key={product.id} className="card w-96 bg-base-100 shadow-xl ">
-              <figure className="px-10 pt-10 size-80 w-full">
+              <figure className="px-10 pt-10 size-80 w-full object-cover ">
                 <img
-                  src={product.images[0]}
+                  src={product.image}
                   alt="Shoes"
                   className="rounded-xl object-contain "
                 />
-              </figure>
+              </figure> 
               <div className="card-body items-start text-start gap-5">
                 <h2 className="card-title text-center w-full line-clamp-1">
                   {product.title}

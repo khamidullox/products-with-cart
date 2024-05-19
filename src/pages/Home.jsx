@@ -2,7 +2,7 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 import ProductsList from "../components/ProductsList";
 export let loader = async () => {
-  let req = await fetch("https://api.escuelajs.co/api/v1/products");
+  let req = await fetch("https://fakestoreapi.com/products/");
   let data = await req.json();
   return data;
 };
