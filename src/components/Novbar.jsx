@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useSelector } from "react-redux";
 function Novbar() {
-  const { cart, amout, chek } = useSelector((state) => state.cart);
+  const { cart, amout, price } = useSelector((state) => state.cart);
 
   return (
     <div className="navbar bg-base-100">

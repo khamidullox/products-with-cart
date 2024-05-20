@@ -16,17 +16,27 @@ export const cartSlice = createSlice({
   initialState: dataFromLoclaStore(),
   reducers: {
     addCart: (state, { payload }) => {
-      state.amout += payload.amout;
-      state.cart.push(payload);
-      cartSlice.caseReducers.setLocal(state);
+      let findCart = state.cart.find((item) => {
+        return item.id == payload.id;
+      });
+
+      if (findCart) {
+        findCart.amout += payload.amout;
+        state.amout = findCart.amout;
+      } else {
+        state.cart.push(payload);
+      }
+      cartSlice.caseReducers.calculatTotal(state);
     },
     deleteCart: (state, { payload }) => {
       let filterDelete = state.cart.filter((cart) => {
         return cart.id != payload;
       });
       state.amout = 0;
+      state.price = 0;
       filterDelete.forEach((element) => {
         state.amout += element.amout;
+        state.price += element.price * element.amout;
       });
       state.cart = filterDelete;
       cartSlice.caseReducers.setLocal(state);
@@ -38,8 +48,21 @@ export const cartSlice = createSlice({
     deleteAll: (state, { payload }) => {
       state.amout = 0;
       state.cart = [];
+      state.price = 0;
       cartSlice.caseReducers.setLocal(state);
     },
+    calculatTotal: (state) => {
+      let price = 0;
+      let amout = 0;
+      state.cart.forEach((item) => {
+        price += item.price * item.amout;
+        amout += item.amout;
+      });
+      state.amout = amout;
+      state.price = price;
+      cartSlice.caseReducers.setLocal(state);
+    },
+
     setLocal: (state) => {
       localStorage.setItem("cart", JSON.stringify(state));
     },

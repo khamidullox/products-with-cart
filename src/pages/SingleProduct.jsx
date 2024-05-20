@@ -83,7 +83,7 @@ function SingleProduct() {
                 <button
                   onClick={() => {
                     dispetch(addCart(newObj));
-                    // toast.success("Successfully add cart!");
+                    toast.success("Successfully add cart!");
                   }}
                   className="btn btn-info"
                 >
